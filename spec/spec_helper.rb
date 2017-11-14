@@ -1,6 +1,7 @@
 ENV["RACK_ENV"] = 'test'
 
 require 'capybara/rspec'
+require 'database_cleaner'
 require './app/app.rb'
 require 'rspec'
 require 'capybara'
@@ -35,6 +36,9 @@ RSpec.configure do |config|
     # ...rather than:
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    config.before(:suite) do
+      DatabaseCleaner.clean_with(:transaction)
+    end
   end
 
   # rspec-mocks config goes here. You can use an alternate test double
