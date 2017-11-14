@@ -10,7 +10,11 @@ end
 
 get '/links' do
   @link1 = Link.get(1)
-  erb(:link)
+  erb(:links)
+end
+
+get '/links/new' do
+  erb(:new)
 end
 
 run! if app_file == $0
