@@ -1,5 +1,6 @@
 require 'capybara/rspec'
 require './app/models/link.rb'
+require 'database_cleaner'
 
 feature "List of links on homepage" do
   scenario 'When i\'m visiting a home page I get a list of my links ' do

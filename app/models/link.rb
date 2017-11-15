@@ -1,4 +1,4 @@
-require 'sinatra'
+# require 'sinatra'
 require 'dm-postgres-adapter'
 require 'data_mapper'
 
@@ -8,7 +8,7 @@ class Link
   include DataMapper::Resource
   property :id, Serial
   property :title, String
-  property :url, Text
+  property :url, String
 end
 
 

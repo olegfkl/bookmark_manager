@@ -9,12 +9,17 @@ get '/' do
 end
 
 get '/links' do
-  @link1 = Link.get(1)
+  @links = Link.all
   erb(:links)
 end
 
 get '/links/new' do
   erb(:new)
+end
+
+post '/links/save' do
+  Link.create(title: params[:title], url: params[:url])
+  redirect '/links'
 end
 
 run! if app_file == $0
