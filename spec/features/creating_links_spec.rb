@@ -23,11 +23,13 @@ feature 'Fill in the form to add a new link to database' do
     click_button 'Add new link'
     fill_in :title, with: 'Test'
     fill_in :url, with: 'www'
+    fill_in :tag, with: 'google'
     click_button 'Submit'
     expect(current_path).to eq '/links'
     within 'ul#links' do
     expect(page).to have_content 'Test'
     expect(page).to have_content 'www'
+    expect(page).to have_content 'google'
     end
   end
 end
