@@ -20,6 +20,12 @@ get '/links/new' do
   erb(:new)
 end
 
+get '/tags/:tag' do |name|
+  tag = Tag.first(name: name)
+  @links = tag ? tag.links : []
+  erb(:links)
+end
+
 post '/links/save' do
   link = Link.create(title: params[:title], url: params[:url])
   link.tags << Tag.first_or_create(name: params[:tag])
