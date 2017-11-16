@@ -33,3 +33,21 @@ feature 'Fill in the form to add a new link to database' do
     end
   end
 end
+
+feature 'Fill in the form to add a new link to database' do
+  scenario 'After filling in the form the link gets added to the list' do
+    visit('/links')
+    click_button 'Add new link'
+    fill_in :title, with: 'Test'
+    fill_in :url, with: 'www'
+    fill_in :tag, with: 'google, example1, example2'
+    click_button 'Submit'
+    expect(current_path).to eq '/links'
+    within 'ul#links' do
+      expect(Tag.all.length).to eq 3
+      expect(page).to have_content 'Test'
+      expect(page).to have_content 'www'
+      expect(page).to have_content 'google, example1, example2'
+    end
+  end
+end
