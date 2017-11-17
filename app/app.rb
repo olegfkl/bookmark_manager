@@ -13,11 +13,11 @@ class BookmarkManager < Sinatra::Base
     erb(:index)
   end
 
-  get '/signup' do
+  get '/users/new' do
     erb(:signup)
   end
 
-  post '/new-user' do
+  post '/users' do
     User.create(
       username: params[:username], password: params[:password])
     session[:username] = params[:username]
@@ -33,15 +33,15 @@ class BookmarkManager < Sinatra::Base
     erb(:new)
   end
 
-  get '/tags/:tag' do |name|
-    tag = Tag.first(name: name)
-    @links = tag ? tag.links : []
+  get '/tags/:tag' do
+    tag = Tag.first(name: params[:tag])
+    @links = tag.links
     erb(:links)
   end
 
-  post '/links/save' do
+  post '/links' do
     link = Link.create(title: params[:title], url: params[:url])
-    params[:tag].split(',').map(&:strip).each do |tag|
+    params[:tag].split.each do |tag|
       link.tags << Tag.first_or_create(name: tag)
     end
     link.save

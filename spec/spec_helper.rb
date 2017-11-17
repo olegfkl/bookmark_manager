@@ -3,6 +3,7 @@ ENV["RACK_ENV"] = 'test'
 require 'capybara/rspec'
 require 'database_cleaner'
 require './app/app.rb'
+require_relative './features/web_helpers.rb'
 
 
 

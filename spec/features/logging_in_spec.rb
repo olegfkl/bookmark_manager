@@ -1,5 +1,5 @@
 def sign_in
-  visit('/signup')
+  visit('/users/new')
   fill_in('username', with: 'oleg@oleg.com')
   fill_in('password', with: 'gelo')
   click_button('Submit')
