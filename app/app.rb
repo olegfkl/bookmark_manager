@@ -16,7 +16,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/' do
-    erb(:index)
+    redirect '/users/new'
   end
 
   get '/users/new' do
@@ -30,7 +30,11 @@ class BookmarkManager < Sinatra::Base
                     password_confirmation: params[:password_confirmation]
                   )
     session[:user_id] = user.id
-    redirect '/links'
+    if user.valid?
+      redirect '/links'
+    else
+      redirect '/users/new'
+    end
   end
 
   get '/links' do
