@@ -7,9 +7,14 @@ require './app/models/user.rb'
 
 class BookmarkManager < Sinatra::Base
   enable :sessions
+  set :session_secret, 'super_secret'
+  helpers do
+    def current_user
+      @current_user ||= User.get(session[:user_id])
+    end
+  end
 
   get '/' do
-    # @link1 = BookmarkManager.get(1)
     erb(:index)
   end
 
@@ -18,15 +23,15 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users' do
-    User.create(
-      username: params[:username], password: params[:password])
-    session[:username] = params[:username]
+    user = User.create(
+    email: params[:email], password: params[:password])
+    session[:user_id] = user.id
     redirect '/links'
   end
 
   get '/links' do
     @links = Link.all
-    erb(:links, locals: { username: session[:username] })
+    erb(:links)
   end
 
   get '/links/new' do

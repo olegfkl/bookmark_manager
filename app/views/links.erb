@@ -1,6 +1,3 @@
-<% if defined? username %>
-        <h1>Hello, <%= username %></h1>
-<% end %>
 <ul id='links'>
   <% @links.each do |link| %>
   <li>
@@ -12,4 +9,3 @@
 </ul>
 <form action='/links/new'>
 <button type="submit" value='Add new link'>Add new link</button>
-</form>
