@@ -4,6 +4,7 @@ require './app/models/database_config'
 require 'sinatra/base'
 require './app/models/link.rb'
 require './app/models/user.rb'
+require 'bcrypt'
 
 class BookmarkManager < Sinatra::Base
   enable :sessions
@@ -24,7 +25,10 @@ class BookmarkManager < Sinatra::Base
 
   post '/users' do
     user = User.create(
-    email: params[:email], password: params[:password])
+                    email: params[:email],
+                    password: params[:password],
+                    password_confirmation: params[:password_confirmation]
+                  )
     session[:user_id] = user.id
     redirect '/links'
   end
